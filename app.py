@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.secret_key = '@Admin123'
 
 # Configuración de la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:emi280120@localhost:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "usuarios.db")}'
 
 db.init_app(app)
 migrate = Migrate(app, db)
