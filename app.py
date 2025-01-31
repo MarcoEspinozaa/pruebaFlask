@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
+import urllib.parse 
 
 from models import db, Usuario, Pelicula, Comentario
 
@@ -16,6 +17,8 @@ MYSQL_PASSWORD = "%*%@@6gw?TWwWBB"
 MYSQL_HOST = "sql.freedb.tech"
 MYSQL_PORT = 3306
 MYSQL_DB = "freedb_usuarios_tareas"
+
+encoded_password = urllib.parse.quote_plus(MYSQL_PASSWORD)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
