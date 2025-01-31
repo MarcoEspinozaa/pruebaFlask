@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import create_engine
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -11,8 +11,13 @@ app = Flask(__name__)
 app.secret_key = '@Admin123'
 
 # Configuración de la base de datos
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "usuarios.db")}'
+if os.environ.get('VERCEL'):  # Verifica si estamos en Vercel
+    db_path = os.path.join('/tmp', 'usuarios.db')  # /tmp para almacenar la base de datos
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(BASE_DIR, 'usuarios.db')  # Usa la ruta local en desarrollo
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 db.init_app(app)
 migrate = Migrate(app, db)
