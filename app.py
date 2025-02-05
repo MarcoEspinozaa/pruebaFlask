@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-from sqlalchemy import create_engine
-from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
