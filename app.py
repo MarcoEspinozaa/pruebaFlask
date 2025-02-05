@@ -10,11 +10,8 @@ app = Flask(__name__)
 app.secret_key = '@Admin123'
 
 # Configuración de la base de datos MySQL usando la variable de entorno MYSQL_URL
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('MYSQL_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:fhHvCmIamLdjUwmzlnROdjIiICYbiGBW@mysql.railway.internal:3306/railway"
 db = SQLAlchemy(app)
-
 
 # Ruta principal
 @app.route('/')
