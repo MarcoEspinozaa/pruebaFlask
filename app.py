@@ -196,6 +196,15 @@ def eliminar_comentario(comentario_id):
         flash('No tienes permiso para eliminar este comentario.', 'danger')
 
     return redirect(url_for('ver_pelicula', id=comentario.id_pelicula))
+
+
+@app.route('/test-db')
+def test_db():
+    try:
+        db.engine.connect()
+        return "¡Conexión a la base de datos exitosa!"
+    except Exception as e:
+        return f"Error al conectar a la base de datos: {str(e)}"
   
 
 if __name__ == '__main__':
