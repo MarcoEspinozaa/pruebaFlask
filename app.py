@@ -11,7 +11,10 @@ app.secret_key = '@Admin123'
 
 # Configuración de la base de datos MySQL usando la variable de entorno MYSQL_URL
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:fhHvCmIamLdjUwmzlnROdjIiICYbiGBW@mysql.railway.internal:3306/railway"
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy()
+db.init_app(app)
 
 # Ruta principal
 @app.route('/')
