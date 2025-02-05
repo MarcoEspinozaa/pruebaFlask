@@ -10,17 +10,15 @@ from models import db, Usuario, Pelicula, Comentario
 app = Flask(__name__)
 app.secret_key = '@Admin123'
 
-# Configuración de la base de datos
-if os.environ.get('VERCEL'):  # Verifica si estamos en Vercel
-    db_path = os.path.join('/tmp', 'usuarios.db')  # /tmp para almacenar la base de datos
-else:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(BASE_DIR, 'usuarios.db')  # Usa la ruta local en desarrollo
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, 'usuarios.db')  # Usa la ruta local en desarrollo
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('MySQL.MYSQL_URL')
 
 db.init_app(app)
 migrate = Migrate(app, db)
+
 
 # Ruta principal
 @app.route('/')
