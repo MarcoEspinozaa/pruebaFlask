@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
@@ -13,8 +12,10 @@ app.secret_key = '@Admin123'
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:fhHvCmIamLdjUwmzlnROdjIiICYbiGBW@mysql.railway.internal:3306/railway"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy()
-db.init_app(app)
+db.init_app(app) 
+
+with app.app_context():
+    db.create_all()
 
 # Ruta principal
 @app.route('/')
