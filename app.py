@@ -8,14 +8,8 @@ from models import db, Usuario, Pelicula, Comentario
 app = Flask(__name__)
 app.secret_key = '@Admin123'
 
-# Configuración de la base de datos MySQL
-mysql_host = os.environ.get('MYSQLHOST')
-mysql_user = os.environ.get('MYSQLUSER')
-mysql_password = os.environ.get('MYSQLPASSWORD')
-mysql_database = os.environ.get('MYSQLDATABASE')
-mysql_port = os.environ.get('MYSQLPORT', 3306)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{mysql_user}:{mysql_password}@{mysql_host}:{mysql_port}/{mysql_database}'
+# Configuración de la base de datos MySQL usando la variable de entorno MYSQL_URL
+app .config["SQLALCHEMY_DATABASE_URI"] = "mysql://${{MYSQLUSER}}:${{MYSQL_ROOT_PASSWORD}}@${{RAILWAY_TCP_PROXY_DOMAIN}}:${{RAILWAY_TCP_PROXY_PORT}}/${{MYSQL_DATABASE}}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
